@@ -21,7 +21,6 @@ io.on('connection', socket => {
     socket.on("userConnect", userName => {
         const dataUser = {idSocket: socket.id,user: userName}
         connectionsData.push(dataUser);
-        console.log(connectionsData);
         io.emit("whoIsOnline", connectionsData);
     });
     connections.push(socket.id);
@@ -29,8 +28,8 @@ io.on('connection', socket => {
     // console.log(connections);
     //console.log(connectionsData);
 
-    socket.on('message', ({ text,username,datetime }) => {
-      io.emit('message', { text,username,datetime })
+    socket.on('message', (test) => {
+      io.emit('message', test)
     })
 
     socket.on('disconnect', function(data){
