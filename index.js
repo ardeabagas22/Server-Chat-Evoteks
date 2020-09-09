@@ -28,6 +28,11 @@ io.on('connection', socket => {
     console.log('Terhubung: %s sockets sedang terhubung', connections.length);
     // console.log(connections);
     //console.log(connectionsData);
+
+    socket.on('message', ({ text,username,datetime }) => {
+      io.emit('message', { text,username,datetime })
+    })
+
     socket.on('disconnect', function(data){
         connections.splice(connections.indexOf(socket.id), 1);
         connectionsData.splice(connectionsData.findIndex(x => x.idSocket === socket.id), 1);
@@ -35,6 +40,7 @@ io.on('connection', socket => {
         io.emit("whoIsOnline", connectionsData);
         //console.log(connectionsData);
     });
+    
 })
 
 http.listen(PORT, function() {
